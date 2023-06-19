@@ -1,0 +1,14 @@
+<form class="container pt-5" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title of the Post</label>
+      <input class="form-control" type="text" id="title" name="title" [(ngModel)]="post.title" required
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="body">Body</label>
+      <textarea class="form-control" id="body" rows="3" [(ngModel)]="post.body" required
+        [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+  

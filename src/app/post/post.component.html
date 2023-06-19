@@ -1,0 +1,26 @@
+<div class="container">
+    <!--Section: Content-->
+    <section class="text-center">
+      <h4 class="mb-5"><strong>Posts</strong></h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let post of posts">
+            <th scope="row">{{post.id}}</th>
+            <td>{{post.title}}</td>
+            <td>{{post.amount}}</td>
+            <td><a (click)="readPost(post.id)" class="btn btn-primary">READ</a></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </section>
+</div>

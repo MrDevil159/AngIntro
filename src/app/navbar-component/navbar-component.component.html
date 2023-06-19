@@ -1,0 +1,40 @@
+<!--Main Navigation-->
+<header>
+  <!-- Sidebar -->
+  <nav
+       id="sidebarMenu"
+       class="d-block sidebar collapse bg-white"
+       >
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-4">
+        <a
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+         routerLink="/"
+         [routerLinkActiveOptions]="{ exact: true }"
+           class="list-group-item list-group-item-action py-2 ripple"
+           >
+          <span>Home</span>
+        </a>
+        <a
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+         routerLink="/home"
+           class="list-group-item list-group-item-action py-2 ripple "
+           >
+          <span>Products</span>
+        </a>
+        <a
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+         routerLink="/newPost"
+           class="list-group-item list-group-item-action py-2 ripple"
+           ><span>Add Product</span></a
+          >
+        
+      </div>
+    </div>
+  </nav>
+
+</header>
+

@@ -1,0 +1,16 @@
+<form  class="container pt-5" style="min-height: 74.3vh;" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Product Name</label>
+      <input type="text" class="form-control" id="title"  formControlName="title"  placeholder="Enter Title" required>
+    </div>
+    <div class="form-group mt-2">
+      <label for="exampleInputPassword1">Description</label>
+      <textarea class="form-control" id="body" formControlName="body" rows="3" required></textarea>
+    </div>
+    <div class="form-group mt-2">
+      <label for="amount">Amount</label>
+      <input type="number" class="form-control" id="amount"  formControlName="amount"  placeholder="Enter amount" required>
+
+    </div>
+    <button type="submit" class=" mt-2 btn btn-primary">Submit</button>
+  </form>
