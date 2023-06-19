@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-post',
@@ -9,24 +11,52 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditPostComponent implements OnInit {
   post: any;
+  postForm: FormGroup;
+  postId!: number;
+  formBuilder: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  body = new FormControl('');
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {
+    this.postForm = this.fb.group({
+      title: [''],
+      body: [''],
+      amount: ['']
+    });
+  }
+  posts: any[] = [];
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
-      const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-      this.post = posts.find((p: any) => p.id === +id);
-    } 
+      this.http.get<any[]>(`http://localhost:3000/api/products/${id}`)
+      .subscribe(data => {
+        this.posts = data;
+        console.log(this.posts);
+        this.body.setValue(this.posts[0].body);
+      });
+    }
   }
+
+
 
   onSubmit(): void {
-    const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-    const index = posts.findIndex((p: any) => p.id === this.post.id);
-    posts[index].title = this.post.title;
-    posts[index].body = this.post.body;
-    localStorage.setItem('posts', JSON.stringify(posts));
-    this.router.navigate(['/posts', this.post.id]);
+    const updatedPost = this.postForm.value;
+    const id = this.route.snapshot.paramMap.get('id');
+    this.http.put(`http://localhost:3000/api/products/${id}`, updatedPost)
+      .subscribe(
+        () => {
+          console.log('Product updated successfully');
+          this.router.navigate(['/posts', id]);
+        },
+        (error) => {
+          console.error('Error updating product:', error);
+        }
+      );
   }
-
 }

@@ -40,20 +40,23 @@ export class PostReadComponent implements OnInit {
   postId: string = '';
   post: any;
   firstImageUrl: string | null = null;
-  secondImage: string | null = null;
-  thirdImage: string | null = null;
+  posts: any[] = [];
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
-      const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-      this.post = posts.find((p: any) => p.id === +id);
-      this.searchUnsplash(this.post.title);
+      this.http.get<any[]>(`http://localhost:3000/api/products/${id}`)
+      .subscribe(data => {
+        this.posts = data;
+        console.log(this.posts);
+        this.searchUnsplash(this.posts[0].title);
+      });
+      
     }
   }
 
   searchUnsplash(searchQuery: string) {
-    const apiKey = 'API_KEY';
+    const apiKey = '5KH8spEooWWTu0z1t5avz6wcIjiFD9CZPaTC2Q7Zl9Q';
     const apiUrl = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(searchQuery)}&per_page=1&client_id=${apiKey}`;
 console.log(apiUrl);
     this.http.get(apiUrl).subscribe((response: any) => {

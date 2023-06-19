@@ -1,9 +1,9 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-2">{{post.title}}</h1><hr>
-          <h1 class="display-6">Amount - {{post.amount}}</h1>
+          <h1 class="display-2">{{posts[0].title}}</h1><hr>
+          <h1 class="display-6">Amount - {{posts[0].amount}}</h1>
           
-          <div class="lead d-flex flex-row"><div class="justify">{{post.body}}</div>
+          <div class="lead d-flex flex-row"><div class="justify">{{posts[0].body}}</div>
           <div class="mt-3">
             <img class=" border border-5"
             src="{{this.firstImageUrl}}"
@@ -11,7 +11,7 @@
           </div>
         </div>
           <button (click)="goBack()" class="btn btn-primary">Go back</button>
-          <button (click)="edit(post.id)" class="btn btn-primary ms-2">Edit</button>
-          <app-delete-post [postId]="post.id"></app-delete-post>
+          <button (click)="edit(posts[0].id)" class="btn btn-primary ms-2">Edit</button>
+          <app-delete-post [postId]="posts[0].id"></app-delete-post>
         </div>
       </div>

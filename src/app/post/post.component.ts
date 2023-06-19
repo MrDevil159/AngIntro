@@ -1,5 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
@@ -8,9 +9,13 @@ import { Router } from '@angular/router';
 })
 export class PostComponent implements OnInit{
   posts: any[] = [];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
   ngOnInit(): void {
-    this.posts = JSON.parse(localStorage.getItem('posts') || '[]');
+    this.http.get<any[]>('http://localhost:3000/api/products')
+      .subscribe(data => {
+        this.posts = data;
+      });
+    // this.posts = JSON.parse(localStorage.getItem('posts') || '[]');
   }
 
   readPost(id: number): void {
